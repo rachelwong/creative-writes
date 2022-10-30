@@ -4,6 +4,7 @@ import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
 import React from 'react'
+import { toast } from 'react-toastify'
 
 const Post = () => {
 
@@ -15,6 +16,18 @@ const Post = () => {
   //submit post
   const submitPost = async (e) => {
     e.preventDefault()
+
+    // Run checks for Description
+    if (!post.description) {
+      toast.error('Description field empty', { position: toast.POSITION.TOP_CENTER, autoClose: 1500})
+      return;
+    }
+
+    if (post.description.length > 300) {
+      toast.error('Description too long', { position: toast.POSITION.TOP_CENTER, autoClose: 1500})
+      return;
+    }
+
     const collectionRef = collection(db, 'posts')
     await addDoc(collectionRef, {
       ...post,
