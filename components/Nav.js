@@ -5,7 +5,6 @@ import { useAuthState } from 'react-firebase-hooks/auth'
 
 const Nav = () => {
   const [user, loading] = useAuthState(auth)
-  console.log('user:', user)
 
   return (
     <nav className="flex justify-between items-center py-10">
@@ -26,7 +25,7 @@ const Nav = () => {
               </button>
             </Link>
             <Link href='/dashboard'>
-              <img className="w-12 rounded-full cursor-pointer" src={user.photoURL} alt={ user.email} />
+              <img className="w-12 rounded-full cursor-pointer" src={ user.photoURL } alt={ user.email} />
             </Link>
           </div>
       )}
